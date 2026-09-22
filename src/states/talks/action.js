@@ -1,3 +1,4 @@
+import { hideLoading, showLoading } from "@dimasmds/react-redux-loading-bar";
 import api from "../../utils/api";
 
 const ActionType = {
@@ -25,29 +26,32 @@ function addTalkActionCreator(talk) {
 }
 
 function toggleLikeTalkActionCreator({ talkId, userId }) {
-    return {
-        type: ActionType.TOGGLE_LIKE_TALK,
-        payload: {
-            talkId,
-            userId,
-        },
-    };
+  return {
+    type: ActionType.TOGGLE_LIKE_TALK,
+    payload: {
+      talkId,
+      userId,
+    },
+  };
 }
 
 //thunk function
 function asyncAddTalk({ text, replyTo = "" }) {
   return async (dispatch) => {
+    dispatch(showLoading());
     try {
       const talk = await api.createTalk({ text, replyTo });
       dispatch(addTalkActionCreator(talk));
     } catch (error) {
       alert(error.message);
     }
+    dispatch(hideLoading());
   };
 }
 
 function asyncToogleLikeTalk(talkId) {
   return async (dispatch, getState) => {
+    dispatch(hideLoading());
     const { authUser } = getState();
     dispatch(toggleLikeTalkActionCreator({ talkId, userId: authUser.id }));
     try {
@@ -56,6 +60,7 @@ function asyncToogleLikeTalk(talkId) {
       alert(error.message);
       dispatch(toggleLikeTalkActionCreator({ talkId, userId: authUser.id }));
     }
+    dispatch(hideLoading());
   };
 }
 
