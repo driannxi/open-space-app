@@ -1,31 +1,21 @@
-import globals from 'globals';
-import { fixupPluginRules } from '@eslint/compat';
-import pluginJs from '@eslint/js';
-import pluginReact from 'eslint-plugin-react';
-import pluginHooks from 'eslint-plugin-react-hooks';
-import daStyle from 'eslint-config-dicodingacademy';
+import js from "@eslint/js";
+import globals from "globals";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import { defineConfig, globalIgnores } from "eslint/config";
 
-export default [
-  { files: ['**/*.{js,mjs,cjs,jsx}'] },
-  { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
-  pluginJs.configs.recommended,
-  pluginReact.configs.flat.recommended,
+export default defineConfig([
+  globalIgnores(["dist"]),
   {
-    plugins: {
-      'react-hooks': fixupPluginRules(pluginHooks)
+    files: ["**/*.{js,jsx}"],
+    extends: [
+      js.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: { ecmaFeatures: { jsx: true } },
     },
-    rules: pluginHooks.configs.recommended.rules,
   },
-  daStyle,
-  {
-    rules: {
-      'linebreak-style': 'off',
-      'no-alert': 'off',
-      'no-underscore-dangle': 'off',
-      'import/prefer-default-export': 'off',
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
-      'react/jsx-props-no-spreading': 'off'
-    }
-  }
-];
+]);
