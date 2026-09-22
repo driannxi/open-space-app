@@ -5,7 +5,7 @@ const ActionType = {
   UNSET_AUTH_USER: "UNSET_AUTH_USER",
 };
 
-function setAuthUserActionCreator() {
+function setAuthUserActionCreator(authUser) {
   return {
     type: ActionType.SET_AUTH_USER,
     payload: {
