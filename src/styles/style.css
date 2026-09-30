@@ -23,10 +23,10 @@ body {
   margin: 0 auto;
 }
 
-.loading {
+/* .loading {
   position: sticky;
   top: 0;
-}
+} */
 
 .login-page, .register-page {
   display: grid;

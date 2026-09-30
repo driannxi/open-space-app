@@ -36,12 +36,12 @@ function DetailPage() {
 
   return (
     <section className="detail-page">
-      {talkDetail.parent && (
+      {/* {talkDetail.parent && (
         <div className="detail-page__parent">
           <h3>Replying To</h3>
           <TalkItem {...talkDetail.parent} authUser={authUser.id} />
         </div>
-      )}
+      )} */}
       <TalkDetail
         {...talkDetail}
         authUser={authUser.id}
