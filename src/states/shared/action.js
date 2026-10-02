@@ -10,7 +10,7 @@ function asyncPopulateUsersAndTalks() {
       const users = await api.getAllUsers();
       const talks = await api.getAllTalks();
       dispatch(receiveUsersActionCreator(users));
-      // dispatch(receiveTalksActionCreator(talks));
+      dispatch(receiveTalksActionCreator(talks));
     } catch (error) {
       alert(error.message);
     }
